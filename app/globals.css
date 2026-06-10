@@ -1,0 +1,309 @@
+/*
+ * globals.css - the SoccerForAmericans design system.
+ *
+ * Concept: "stadium at night". Deep navy like a floodlit evening kit,
+ * faint pitch markings drawn behind the content, glassy cards, and a
+ * pitch-green money button. Red/white/blue appears as a slim flag bar
+ * and in the crest - accents, not wallpaper.
+ *
+ * All the colors live here in :root - change them and the site follows.
+ */
+
+:root {
+  --bg-top: #0c1730;        /* floodlit navy */
+  --bg-bottom: #060b18;     /* night sky */
+  --card: rgba(255, 255, 255, 0.045);
+  --card-border: rgba(255, 255, 255, 0.10);
+  --text: #f2f5fb;
+  --text-dim: #93a3bd;
+  --accent: #34d27b;        /* pitch green */
+  --accent-deep: #1fa863;
+  --usa-red: #e63e5c;
+  --usa-blue: #3f6fde;
+  --line: rgba(255, 255, 255, 0.055);  /* pitch markings */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background:
+    /* faint vertical "mown grass" stripes, like a stadium pitch */
+    repeating-linear-gradient(90deg,
+      rgba(255, 255, 255, 0.012) 0 90px,
+      rgba(255, 255, 255, 0) 90px 180px),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom) 65%);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Pitch markings drawn behind everything ----
+   A center circle up top (your crest sits inside it, like kickoff)
+   and a halfway line through it. Subtle on purpose. */
+.pitch {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.pitch::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 460px;
+  height: 460px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+}
+.pitch::after {
+  content: "";
+  position: absolute;
+  top: 110px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--line);
+}
+
+/* ---- The single centered column (phone-first) ---- */
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 56px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.55rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 10px;
+}
+
+/* Slim red-white-blue accent bar under the brand name */
+.flag-bar {
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg,
+    var(--usa-red) 0 33%, #ffffff 33% 67%, var(--usa-blue) 67% 100%);
+}
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 40ch;
+  margin-top: 2px;
+}
+
+/* ---- Social chips ---- */
+.socials {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.chip {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.chip:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(52, 210, 123, 0.08);
+}
+
+/* ---- Link buttons: glassy cards with a green glow on hover ---- */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: 0 8px 28px rgba(52, 210, 123, 0.16);
+}
+
+/* The featured (money) button: pitch-green, impossible to miss. */
+.button.featured {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  border: none;
+  color: #07301c;
+  font-size: 1.08rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 18px 20px;
+  box-shadow: 0 8px 32px rgba(52, 210, 123, 0.25);
+}
+.button.featured:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 40px rgba(52, 210, 123, 0.35);
+}
+
+.emoji { font-size: 1.2rem; }
+
+/* ---- Sections: headings flanked by pitch lines ---- */
+.group { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.group h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+}
+.group h2::before,
+.group h2::after {
+  content: "";
+  height: 1px;
+  background: var(--card-border);
+  flex: 1;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  max-width: 42ch;
+  line-height: 1.6;
+}
+
+/* ---- Shop page ---- */
+.shop { max-width: 660px; }
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  margin-top: 12px;
+}
+@media (max-width: 520px) {
+  .shop-grid { grid-template-columns: 1fr; }
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 16px;
+  border-radius: 18px;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(8px);
+  text-align: center;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.product:hover { transform: translateY(-3px); border-color: var(--accent); }
+.product-emoji { font-size: 2.3rem; }
+.product h2 { font-size: 1rem; font-weight: 800; }
+.product .blurb { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; flex-grow: 1; }
+.product .price {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.button.buy {
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  border: none;
+  color: #07301c;
+  font-weight: 800;
+}
+
+.back {
+  margin-top: 24px;
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back:hover { color: var(--accent); }
+
+/* ---- Stats page: scoreboard energy ---- */
+.stats {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
+.stats h1 {
+  font-size: 1.4rem;
+  margin-bottom: 4px;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.stats .sub { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 24px; }
+
+.stats table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.stats th, .stats td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--card-border);
+}
+.stats th {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+}
+.stats td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.stats tr:last-child td { border-bottom: none; }
+.stats .total-row td { font-weight: 800; color: var(--accent); }
+
+.notice {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(52, 210, 123, 0.08);
+  border: 1px solid rgba(52, 210, 123, 0.25);
+  color: #bdf0d4;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}

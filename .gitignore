@@ -1,0 +1,15 @@
+# Dependencies and build output
+node_modules/
+.next/
+out/
+
+# Local environment secrets - NEVER commit these
+.env.local
+.env*.local
+
+# Local click log (dev fallback before Supabase is connected)
+data/
+
+# Misc
+.DS_Store
+*.tsbuildinfo
